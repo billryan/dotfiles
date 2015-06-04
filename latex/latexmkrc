@@ -1,0 +1,18 @@
+$pdf_previewer = 'osascript -e "set theFile to POSIX file \"%S\" as alias" -e "set thePath to POSIX path of theFile" -e "tell application \"Skim\"" -e "open theFile" -e "end tell"';
+$pdf_update_method = 4;
+$pdf_update_command = '/usr/bin/osascript -e "set theFile to POSIX file \"%S\" as alias" -e "set thePath to POSIX path of theFile" -e "tell application \"Skim\"" -e  "  set theDocs to get documents whose path is thePath" -e "  try" -e "    if (count of theDocs) > 0 then revert theDocs" -e "  end try" -e "  open theFile" -e "end tell"';
+$latex = 'latex --shell-escape';
+$pdflatex = 'pdflatex --shell-escape';
+
+# added for using glossaries
+add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
+sub makeglo2gls {
+  system("makeindex -s '$_[0]'.ist -t '$_[0]'.glg -o '$_[0]'.gls '$_[0]'.glo");
+}
+
+# automatically convert R to .tex
+# (needs to use tikzDevice and R file needs to have the same file base as tex file)
+add_cus_dep( 'R', 'tex', 0, 'CallRscript');
+sub CallRscript {
+    system("cd `dirname $_[0].R` && Rscript `basename $_[0].R` `basename $_[0].tex`");
+}

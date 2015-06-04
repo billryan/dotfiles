@@ -1,8 +1,6 @@
-# OS X
-**/.DS_Store
-
 # Private Environment
 .env_private
 
 # ignore third-party repo
 tmux/tmux-colors-solarized
+solarized

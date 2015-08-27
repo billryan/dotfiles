@@ -2,7 +2,8 @@ $pdf_previewer = 'osascript -e "set theFile to POSIX file \"%S\" as alias" -e "s
 $pdf_update_method = 4;
 $pdf_update_command = '/usr/bin/osascript -e "set theFile to POSIX file \"%S\" as alias" -e "set thePath to POSIX path of theFile" -e "tell application \"Skim\"" -e  "  set theDocs to get documents whose path is thePath" -e "  try" -e "    if (count of theDocs) > 0 then revert theDocs" -e "  end try" -e "  open theFile" -e "end tell"';
 $latex = 'latex --shell-escape';
-$pdflatex = 'pdflatex --shell-escape';
+# $pdflatex = 'pdflatex --shell-escape';
+$pdflatex = 'xelatex --shell-escape';
 
 # added for using glossaries
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
